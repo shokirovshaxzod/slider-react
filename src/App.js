@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { FiChevronRight, FiChevronLeft } from 'react-icons/fi';
 import { FaQuoteRight } from 'react-icons/fa';
-import data from './data';
+// import data from './data';
 import './App.css';
 
 function App() {
-  const [people, setPeople] = useState(data);
+  const [people, setPeople] = useState([]);
   const [index, setIndex] = useState(0);
 
+  const fetchUser = async () => {
+    const res = await fetch('https://62ca28214795d2d81f85817b.mockapi.io/slider');
+    const newUser = await res.json();
+    setPeople(newUser);
+  };
+  useEffect(() => {
+    fetchUser();
+  }, []);
   useEffect(() => {
     const lastIndex = people.length - 1;
     if (index < 0) {
